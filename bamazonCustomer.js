@@ -77,12 +77,17 @@ function buyItem()
                     console.log("new stock is: " + new_stock);
                     console.log("total sales is: " + new_sales);
                     var params = [{stock_quantity: new_stock, product_sales: new_sales}, {item_id: itemID}];
-                    connection.query("SELECT * FROM department WHERE department_name = "+ res[0].department_name, function(err, data)
+                    console.log("SELECT * FROM departments WHERE department_name = '"+ res[0].department_name+"'");
+                    connection.query("SELECT * FROM departments WHERE department_name = '"+ res[0].department_name+"'", function(err, data)
                     {
-                        console.log(data);
-                        var newTotalSales = new_sales + data[0].total_sales;
-                        connection.query("UPDATE department SET ? WHERE department_name ="+data.department_name, {total_sales, newTotalSales});
-                    })
+                        //console.log(data);
+                        if (data != undefined)
+                        {
+                            console.log("NewTotalSales: "+ new_sales);
+                            console.log(data[0].department_name);
+                            connection.query("UPDATE departments SET ? WHERE department_name ='"+data[0].department_name+"'", {total_sales: new_sales});
+                        }
+                    });
                     connection.query(query, params, function(err, temp)
                     {
                         console.log("Your total order comes to: " + quantity*res[0].price);
