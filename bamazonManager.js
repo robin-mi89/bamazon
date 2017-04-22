@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err)
 {
     if(err) throw err;
-    console.log("connected as id " + connection.threadId);
+    //console.log("connected as id " + connection.threadId);
     //console.log(connection);
 });
 
@@ -104,7 +104,7 @@ function viewLowInventory()
 
 function addInventory()
 {
-    console.log("in add inventory");
+    //console.log("in add inventory");
     inquirer.prompt([
     {
         type: "input", 
@@ -126,7 +126,7 @@ function addInventory()
         var query = "UPDATE products Set ? Where ?";
         var newQuantity = oldQuantity+parseInt(result.quantity);
         var changes = [{stock_quantity: newQuantity}, {item_id: parseInt(result.itemID)}]
-        console.log(changes);
+        //console.log(changes);
         connection.query(query, changes, function(err, res)
         {
             if(err) throw err;
@@ -140,7 +140,7 @@ function addInventory()
 
 function addProduct()
 {
-    console.log("in add product");
+    //console.log("in add product");
     inquirer.prompt([
     {
         type: "input", 
@@ -164,9 +164,9 @@ function addProduct()
     }
     ]).then(function(result)
     {
-        console.log(result);
+        //console.log(result);
         var input = [{product_name: result.itemName, department_name: result.itemDept, price: parseFloat(result.itemPrice), stock_quantity: parseInt(result.itemStock)}];
-        console.log(input);
+        //console.log(input);
         var query = "INSERT INTO products SET ?";
         connection.query(query, input, function(err, res)
         {

@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err)
 {
     if(err) throw err;
-    console.log("connected as id " + connection.threadId);
+    //console.log("connected as id " + connection.threadId);
     //console.log(connection);
 });
 
@@ -74,17 +74,17 @@ function buyItem()
                     var query = "UPDATE products Set ? Where ?";
                     var new_stock = res[0].stock_quantity-quantity;
                     var new_sales = res[0].product_sales + quantity*res[0].price;
-                    console.log("new stock is: " + new_stock);
-                    console.log("total sales is: " + new_sales);
+                    //console.log("new stock is: " + new_stock);
+                    //console.log("total sales is: " + new_sales);
                     var params = [{stock_quantity: new_stock, product_sales: new_sales}, {item_id: itemID}];
-                    console.log("SELECT * FROM departments WHERE department_name = '"+ res[0].department_name+"'");
+                    //console.log("SELECT * FROM departments WHERE department_name = '"+ res[0].department_name+"'");
                     connection.query("SELECT * FROM departments WHERE department_name = '"+ res[0].department_name+"'", function(err, data)
                     {
                         //console.log(data);
                         if (data != undefined)
                         {
-                            console.log("NewTotalSales: "+ new_sales);
-                            console.log(data[0].department_name);
+                           // console.log("NewTotalSales: "+ new_sales);
+                            //console.log(data[0].department_name);
                             connection.query("UPDATE departments SET ? WHERE department_name ='"+data[0].department_name+"'", {total_sales: new_sales});
                         }
                     });

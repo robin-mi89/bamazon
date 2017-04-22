@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 connection.connect(function(err)
 {
     if(err) throw err;
-    console.log("connected as id " + connection.threadId);
+    //console.log("connected as id " + connection.threadId);
     //console.log(connection);
 });
 
@@ -61,7 +61,7 @@ function viewSalesByDept()
         {
             value.profits = value.total_sales-value.over_head_costs;
         })
-        console.table(data);
+        //console.table(data);
         start();
     });
 }
@@ -82,7 +82,7 @@ function createDept()
     ]).then(function(result)
     {
         var newDept = {department_name: result.name, over_head_costs: parseFloat(result.overhead), total_sales: 0}
-        console.log(newDept);
+        //console.log(newDept);
         var query = "INSERT INTO departments SET ?";
         connection.query(query, newDept, function(err, res)
         {
